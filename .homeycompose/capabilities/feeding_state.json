@@ -1,0 +1,15 @@
+{
+    "id": "feeding_state",
+    "type": "enum",
+    "title": {
+      "en": "Feeding State"
+    },
+    "getable": true,
+    "setable": false,
+    "values": [
+      { "id": "standby", "title": { "en": "Standby" } },
+      { "id": "feeding", "title": { "en": "Feeding" } }
+    ],
+    "insights": false
+  }
+  

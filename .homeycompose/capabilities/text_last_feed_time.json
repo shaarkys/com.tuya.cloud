@@ -1,0 +1,13 @@
+{
+    "id": "text_last_feed_time",
+    "type": "string",
+    "title": {
+      "en": "Last Cloud Update"
+    },
+    "getable": true,
+    "setable": false,
+    "insights": false,
+  "icon": "assets/icons/update_time.svg"
+}
+
+  

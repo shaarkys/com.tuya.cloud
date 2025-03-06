@@ -1,0 +1,11 @@
+{
+    "id": "feed_now",
+    "type": "boolean",
+    "title": {
+      "en": "Feed Now"
+    },
+    "getable": true,
+    "setable": true,
+    "uiComponent": "button",
+    "insights": false
+  }

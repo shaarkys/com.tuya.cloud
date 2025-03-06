@@ -1,0 +1,25 @@
+{
+    "id": "storage_button",
+    "type": "boolean",
+    "uiComponent": "button",
+    "title": {
+      "en": "Charge 60%"
+    },
+    "getable": true,
+    "setable": true,
+    "insights": true,
+    "insightsTitleTrue": {
+      "en": "Charging to 60%"
+    },
+    "insightsTitleFalse": {
+      "en": "Charging to 100%"
+    },
+    "titleTrue": {
+      "en": "Charging to 60%"
+    },
+    "titleFalse": {
+      "en": "Charging to 100%"
+    },
+    "icon": "assets/icons/battery60.svg"
+  }
+  

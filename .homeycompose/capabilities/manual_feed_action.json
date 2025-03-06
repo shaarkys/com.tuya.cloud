@@ -1,0 +1,13 @@
+{
+    "id": "manual_feed_action",
+    "type": "number",
+    "title": {
+      "en": "Feed Now"
+    },
+    "getable": false,
+    "setable": true,
+    "min": 0,
+    "max": 12,
+    "decimals": 0
+  }
+  

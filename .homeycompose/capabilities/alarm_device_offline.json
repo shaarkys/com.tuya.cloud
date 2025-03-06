@@ -1,0 +1,23 @@
+{
+  "id": "alarm_device_offline",
+  "type": "boolean",
+  "title": {
+    "en": "Device Offline"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "assets/icons/online.svg",
+  "insightsTitleTrue": {
+    "en": "Device is offline"
+  },
+  "insightsTitleFalse": {
+    "en": "Device is online"
+  },
+  "titleTrue": {
+    "en": "Offline"
+  },
+  "titleFalse": {
+    "en": "Online"
+  }
+}

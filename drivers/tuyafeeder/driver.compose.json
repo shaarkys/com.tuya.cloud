@@ -1,0 +1,18 @@
+{
+  "name": {
+    "en": "Tuya Feeder"
+  },
+  "class": "petfeeder",
+  "capabilities": [
+    "feed_now",
+    "feeding_state",
+    "measure_feed_portions",
+    "manual_feed_action",
+    "text_last_feed_time",
+    "alarm_feeding",
+    "alarm_device_offline"
+  ],
+  "$extends": [
+    "defaults"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "actions": [
+    {
+      "id": "feed_pet_portions",
+      "title": {
+        "en": "Feed Pet Portions"
+      },
+      "titleFormatted": {
+        "en": "Feed [[portions]] Portions on [[device]]"
+      },
+      "args": [
+        {
+          "name": "device",
+          "type": "device",
+          "filter": "driver_id=tuyafeeder"
+        },
+        {
+          "name": "portions",
+          "type": "number",
+          "min": 1,
+          "max": 12
+        }
+      ]
+    }
+  ]
+}

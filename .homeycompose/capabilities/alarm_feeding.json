@@ -1,0 +1,24 @@
+{
+    "id": "alarm_feeding",
+    "type": "boolean",
+    "title": {
+      "en": "Feeding"
+    },
+    "getable": true,
+    "setable": false,
+    "insights": true,
+    "insightsTitleTrue": {
+      "en": "Feeding started"
+    },
+    "insightsTitleFalse": {
+      "en": "Feeding stopped"
+    },
+    "titleTrue": {
+      "en": "Feeding"
+    },
+    "titleFalse": {
+      "en": "Not feeding"
+    },
+    "icon": "assets/icons/feeding_state.svg"
+  }
+  

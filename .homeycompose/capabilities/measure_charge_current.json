@@ -1,0 +1,17 @@
+{
+    "type": "number",
+    "title": {
+      "en": "Charge Current"
+    },
+    "units": "mA",
+    "decimals": 0,
+    "getable": true,
+    "setable": false,
+    "insights": true,
+    "ui": {
+      "hint": 2,
+      "type": "sensor"
+    },
+    "icon": "/assets/icons/current.svg"
+  }
+  

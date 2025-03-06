@@ -1,0 +1,19 @@
+{
+  "name": {
+    "en": "Parkside Charger"
+  },
+  "class": "other",
+  "capabilities": [
+    "measure_battery",
+    "battery_charging",
+    "measure_charge_current",
+    "measure_charge_voltage",
+    "storage_button",
+    "measure_temperature",
+    "onoff",
+    "alarm_device_offline"
+  ],
+  "$extends": [
+    "defaults"
+  ]
+}

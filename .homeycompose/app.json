@@ -11,10 +11,9 @@
   },
   "category": "lights",
   "version": "1.1.25",
-  "compatibility": ">=5.0.0",
+  "compatibility": ">=12.0.0",
   "author": {
-    "name": "Jurgen Heine",
-    "email": "jurgen2.heine@gmail.com"
+    "name": "Bretislav Kubesa"
   },
   "contributors": {
     "developers": [
@@ -32,6 +31,9 @@
       },
       {
         "name": "Ronny Winkler"
+      },
+      {
+        "name": "Jurgen Heine"
       }
     ]
   },

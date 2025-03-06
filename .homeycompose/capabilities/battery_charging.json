@@ -1,0 +1,27 @@
+{
+    "type": "boolean",
+    "title": {
+      "en": "Battery Charging"
+    },
+    "getable": true,
+    "setable": false,
+    "icon": "/assets/icons/battery_charging_state.svg", 
+    "ui": {
+      "hint": 1,
+      "type": "sensor",
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Charging started"
+      },
+      "insightsTitleFalse": {
+        "en": "Charing stopped"
+      },
+      "titleTrue": {
+        "en": "Charging"
+      },
+      "titleFalse": {
+        "en": "Not charging"
+      }
+    }
+  }
+  

@@ -34,6 +34,7 @@ class TuyaLightDriver extends TuyaBaseDriver {
                             capabilities.push("light_hue");
                             capabilities.push("light_saturation");
                             capabilities.push("light_mode");
+                            capabilities.push("dim");
                             break;
                         default:
                             break;

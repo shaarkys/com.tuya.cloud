@@ -12,10 +12,9 @@
   },
   "category": "lights",
   "version": "1.1.25",
-  "compatibility": ">=5.0.0",
+  "compatibility": ">=12.0.0",
   "author": {
-    "name": "Jurgen Heine",
-    "email": "jurgen2.heine@gmail.com"
+    "name": "Bretislav Kubesa"
   },
   "contributors": {
     "developers": [
@@ -33,6 +32,9 @@
       },
       {
         "name": "Ronny Winkler"
+      },
+      {
+        "name": "Jurgen Heine"
       }
     ]
   },
@@ -753,6 +755,33 @@
           }
         ],
         "id": "setTuyaScene"
+      },
+      {
+        "id": "feed_pet_portions",
+        "title": {
+          "en": "Feed Pet Portions"
+        },
+        "titleFormatted": {
+          "en": "Feed [[portions]] Portions on [[device]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=tuyafeeder"
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=tuyafeeder"
+          },
+          {
+            "name": "portions",
+            "type": "number",
+            "min": 1,
+            "max": 12
+          }
+        ]
       }
     ]
   },
@@ -1130,6 +1159,47 @@
     },
     {
       "images": {
+        "large": "/drivers/parksidecharger/assets/images/large.png",
+        "small": "/drivers/parksidecharger/assets/images/small.png"
+      },
+      "icon": "/drivers/parksidecharger/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Parkside Charger"
+      },
+      "class": "other",
+      "capabilities": [
+        "measure_battery",
+        "battery_charging",
+        "measure_charge_current",
+        "measure_charge_voltage",
+        "storage_button",
+        "measure_temperature",
+        "onoff",
+        "alarm_device_offline"
+      ],
+      "id": "parksidecharger"
+    },
+    {
+      "images": {
         "large": "/drivers/switch/assets/images/large.png",
         "small": "/drivers/switch/assets/images/small.png"
       },
@@ -1373,6 +1443,46 @@
         "windowcoverings_set"
       ],
       "id": "tuyacover"
+    },
+    {
+      "images": {
+        "large": "/drivers/tuyafeeder/assets/images/large.png",
+        "small": "/drivers/tuyafeeder/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyafeeder/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Tuya Feeder"
+      },
+      "class": "petfeeder",
+      "capabilities": [
+        "feed_now",
+        "feeding_state",
+        "measure_feed_portions",
+        "manual_feed_action",
+        "text_last_feed_time",
+        "alarm_feeding",
+        "alarm_device_offline"
+      ],
+      "id": "tuyafeeder"
     },
     {
       "images": {
@@ -1698,6 +1808,78 @@
     }
   ],
   "capabilities": {
+    "alarm_device_offline": {
+      "id": "alarm_device_offline",
+      "type": "boolean",
+      "title": {
+        "en": "Device Offline"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "icon": "assets/icons/online.svg",
+      "insightsTitleTrue": {
+        "en": "Device is offline"
+      },
+      "insightsTitleFalse": {
+        "en": "Device is online"
+      },
+      "titleTrue": {
+        "en": "Offline"
+      },
+      "titleFalse": {
+        "en": "Online"
+      }
+    },
+    "alarm_feeding": {
+      "id": "alarm_feeding",
+      "type": "boolean",
+      "title": {
+        "en": "Feeding"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Feeding started"
+      },
+      "insightsTitleFalse": {
+        "en": "Feeding stopped"
+      },
+      "titleTrue": {
+        "en": "Feeding"
+      },
+      "titleFalse": {
+        "en": "Not feeding"
+      },
+      "icon": "assets/icons/feeding_state.svg"
+    },
+    "battery_charging": {
+      "type": "boolean",
+      "title": {
+        "en": "Battery Charging"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/icons/battery_charging_state.svg",
+      "ui": {
+        "hint": 1,
+        "type": "sensor",
+        "insights": true,
+        "insightsTitleTrue": {
+          "en": "Charging started"
+        },
+        "insightsTitleFalse": {
+          "en": "Charing stopped"
+        },
+        "titleTrue": {
+          "en": "Charging"
+        },
+        "titleFalse": {
+          "en": "Not charging"
+        }
+      }
+    },
     "dehumidifier_fan_speed": {
       "type": "enum",
       "title": {
@@ -1905,6 +2087,132 @@
           }
         }
       ]
+    },
+    "feed_now": {
+      "id": "feed_now",
+      "type": "boolean",
+      "title": {
+        "en": "Feed Now"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "button",
+      "insights": false
+    },
+    "feeding_state": {
+      "id": "feeding_state",
+      "type": "enum",
+      "title": {
+        "en": "Feeding State"
+      },
+      "getable": true,
+      "setable": false,
+      "values": [
+        {
+          "id": "standby",
+          "title": {
+            "en": "Standby"
+          }
+        },
+        {
+          "id": "feeding",
+          "title": {
+            "en": "Feeding"
+          }
+        }
+      ],
+      "insights": false
+    },
+    "manual_feed_action": {
+      "id": "manual_feed_action",
+      "type": "number",
+      "title": {
+        "en": "Feed Now"
+      },
+      "getable": false,
+      "setable": true,
+      "min": 0,
+      "max": 12,
+      "decimals": 0
+    },
+    "measure_feed_portions": {
+      "id": "measure_feed_portions",
+      "type": "number",
+      "title": {
+        "en": "Last Feed Portions"
+      },
+      "getable": true,
+      "setable": false,
+      "decimals": 0,
+      "icon": "assets/icons/petfeeder_portions.svg",
+      "insights": true
+    },
+    "measure_charge_current": {
+      "type": "number",
+      "title": {
+        "en": "Charge Current"
+      },
+      "units": "mA",
+      "decimals": 0,
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "ui": {
+        "hint": 2,
+        "type": "sensor"
+      },
+      "icon": "/assets/icons/current.svg"
+    },
+    "measure_charge_voltage": {
+      "type": "number",
+      "title": {
+        "en": "Voltage charge"
+      },
+      "units": "V",
+      "decimals": 2,
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "ui": {
+        "hint": 2,
+        "type": "sensor"
+      },
+      "icon": "/assets/icons/voltage.svg"
+    },
+    "storage_button": {
+      "id": "storage_button",
+      "type": "boolean",
+      "uiComponent": "button",
+      "title": {
+        "en": "Charge 60%"
+      },
+      "getable": true,
+      "setable": true,
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Charging to 60%"
+      },
+      "insightsTitleFalse": {
+        "en": "Charging to 100%"
+      },
+      "titleTrue": {
+        "en": "Charging to 60%"
+      },
+      "titleFalse": {
+        "en": "Charging to 100%"
+      },
+      "icon": "assets/icons/battery60.svg"
+    },
+    "text_last_feed_time": {
+      "id": "text_last_feed_time",
+      "type": "string",
+      "title": {
+        "en": "Last Cloud Update"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": false,
+      "icon": "assets/icons/update_time.svg"
     },
     "thermostat_heater_mode": {
       "type": "enum",
