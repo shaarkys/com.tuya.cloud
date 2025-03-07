@@ -1,0 +1,19 @@
+[
+    {
+      "id": "initial_meter_power",
+      "type": "number",
+      "label": {
+        "en": "Initial Cumulative Consumption (kWh)"
+      },
+      "hint": {
+        "en": "Set & reset the initial cumulative energy value (kWh)"
+      },
+      "value": 0,
+      "attr": {
+        "min": 0,
+        "max": 100000,
+        "step": 0.01
+      }
+    }
+  ]
+  
