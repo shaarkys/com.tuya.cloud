@@ -104,6 +104,7 @@ class TuyaSocketDevice extends TuyaBaseDevice {
       // measure_voltage: divide by 10, e.g., for LSC Power Plug w/ Power Meter FR
       if (statusMap.code === "cur_voltage") {
         const newValue = Number(statusMap.value) / 10;
+        //this.log(`Updating measure_power capability with ${newValue} `);
         if (!this.hasCapability("measure_voltage")) {
           this.addCapability("measure_voltage")
             .then(() => {

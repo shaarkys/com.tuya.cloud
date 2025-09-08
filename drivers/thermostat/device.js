@@ -53,6 +53,14 @@ class TuyaThermostatDevice extends TuyaBaseDevice {
     //init Or refresh AccessoryService
     updateCapabilities(statusArr) {
                 this.log("Update thermostat capabilities from Tuya: " + JSON.stringify(statusArr));
+        if (!statusArr) return;
+
+        // Ensure battery capability exists when device reports battery DP
+        const hasBatteryDP = statusArr.some(s => s.code === 'battery_percentage' || s.code === 'battery_state');
+        if (hasBatteryDP && !this.hasCapability('measure_battery')) {
+            this.addCapability('measure_battery').catch(this.error);
+        }
+
         statusArr.forEach(status => {
             switch (status.code) {
                 case 'switch':
@@ -69,6 +77,18 @@ class TuyaThermostatDevice extends TuyaBaseDevice {
                 case 'temp_current':
                     this.normalAsync('measure_temperature', status.value/Math.pow(10,this.scale));
                     break;
+                case 'battery_percentage':
+                    this.normalAsync('measure_battery', Number(status.value) || 0);
+                    break;
+                case 'battery_state': {
+                    const raw = String(status.value || '').toLowerCase();
+                    let mapped = 0;
+                    if (raw === 'low') mapped = 10;
+                    else if (raw === 'middle') mapped = 50;
+                    else if (raw === 'high') mapped = 100;
+                    this.normalAsync('measure_battery', mapped);
+                    break;
+                }
                 // case 'mode':
                 //     const homeyMode = tuyaToHomeyModeMap.get(status.value);
                 //     if(homeyMode!=='off') {

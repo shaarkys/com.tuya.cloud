@@ -29,6 +29,12 @@ class TuyaThermostatDriver extends TuyaBaseDriver {
                             case "temp_current":
                                 capabilities.push("measure_temperature");
                                 break;
+                            case "battery_percentage":
+                            case "battery_state":
+                                if (!capabilities.includes("measure_battery")) {
+                                    capabilities.push("measure_battery");
+                                }
+                                break;
                             default:
                                 break;
                         }
