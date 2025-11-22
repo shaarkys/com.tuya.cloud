@@ -142,7 +142,7 @@ class TuyaSocketDevice extends TuyaBaseDevice {
         if (!this.hasOwnProperty("_initialized")) {
           this._initialized = true;
           this.log(`Ignoring initial add_ele report (${statusMap.value / 1000} kWh) on startup.`);
-          return;
+          continue;
         }
 
         const incrementalConsumption = statusMap.value / 1000; // convert to kWh

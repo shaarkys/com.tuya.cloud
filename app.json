@@ -1766,7 +1766,10 @@
       "class": "socket",
       "capabilities": [
         "onoff",
-        "measure_power"
+        "measure_power",
+        "measure_voltage",
+        "measure_current",
+        "meter_power"
       ],
       "id": "tuyasocket",
       "settings": [
