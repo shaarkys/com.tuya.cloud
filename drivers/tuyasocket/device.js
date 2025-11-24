@@ -138,15 +138,29 @@ class TuyaSocketDevice extends TuyaBaseDevice {
 
       // meter_power (cumulative electricity, DP: add_ele)
       if (statusMap.code === "add_ele") {
-        // Ignore the first report after app restart or device initialization
-        if (!this.hasOwnProperty("_initialized")) {
-          this._initialized = true;
-          this.log(`Ignoring initial add_ele report (${statusMap.value / 1000} kWh) on startup.`);
+        const rawVal = Number(statusMap.value);
+        if (Number.isNaN(rawVal)) {
+          this.log("add_ele payload is not a number, skipping.");
           continue;
         }
 
-        const incrementalConsumption = statusMap.value / 1000; // convert to kWh
-        const currentConsumption = this.getCapabilityValue("meter_power") || this.getSettings().initial_meter_power || 0;
+        // Track the last raw reading to prevent double-counting when Tuya reports cumulative totals.
+        if (this._lastAddEleRaw === undefined) {
+          this._lastAddEleRaw = rawVal;
+          this.log(`Storing initial add_ele reading (${rawVal / 1000} kWh) as baseline.`);
+          continue;
+        }
+
+        const deltaRaw = rawVal - this._lastAddEleRaw;
+        this._lastAddEleRaw = rawVal;
+
+        if (deltaRaw < 0) {
+          this.log("add_ele decreased, resetting baseline without incrementing meter_power.");
+          continue;
+        }
+
+        const incrementalConsumption = deltaRaw / 1000; // convert to kWh
+        const currentConsumption = this.getCapabilityValue("meter_power") ?? this.getSettings().initial_meter_power ?? 0;
         const updatedConsumption = currentConsumption + incrementalConsumption;
 
         if (!this.hasCapability("meter_power")) {
@@ -155,7 +169,7 @@ class TuyaSocketDevice extends TuyaBaseDevice {
             this.log("Added capability meter_power");
           } catch (err) {
             this.error("Failed to add meter_power:", err);
-            return;
+            continue;
           }
         }
 
