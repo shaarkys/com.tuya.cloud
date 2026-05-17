@@ -3,89 +3,6 @@
 const Homey = require("homey");
 
 class TuyaBaseDriver extends Homey.Driver {
-  static categorietypes = [
-    {
-      type: "airConditioner",
-      category: ["kt"],
-    },
-    {
-      type: "light",
-      category: ["dj", "dd", "fwd", "tgq", "xdd", "dc", "tgkg", "sxd", "tyndj", "mbd", "gyd"],
-    },
-    {
-      type: "temphumimeter",
-      category: ["wsdcg"],
-    },
-    {
-      type: "switch",
-      category: ["kg", "tdq"],
-    },
-    {
-      type: "socket",
-      category: ["cz", "pc"],
-    },
-    {
-      type: "cover",
-      category: ["cl", "clkg"],
-    },
-    {
-      type: "airPurifier",
-      category: ["kj", "cs"],
-    },
-    {
-      type: "dehumidifier",
-      category: ["cs"],
-    },
-    {
-      type: "fan",
-      category: ["fs", "fskg"],
-    },
-    {
-      type: "smokeSensor",
-      category: ["ywbj"],
-    },
-    {
-      type: "coSensor",
-      category: ["cobj"],
-    },
-    {
-      type: "heater",
-      category: ["qn"],
-    },
-    {
-      type: "garageDoorOpener",
-      category: ["ckmkzq"],
-    },
-    {
-      type: "contactSensor",
-      category: ["mcs"],
-    },
-    {
-      type: "leakSensor",
-      category: ["rqbj", "jwbj", "sj"],
-    },
-    {
-      type: "pir",
-      category: ["pir"],
-    },
-    {
-      type: "presenceSensor",
-      category: ["hps"],
-    },
-    {
-      type: "thermostat",
-      category: ["wk"],
-    },
-    {
-      type: "feeder",
-      category: ["cwwsq"],
-    },
-    {
-      type: "parksidecharger",
-      category: ["zncdq"],
-    },
-  ];
-
   static _compareHomeyDevice(a, b) {
     if (a.name < b.name) return -1;
     if (a.name > b.name) return 1;
@@ -210,5 +127,88 @@ class TuyaBaseDriver extends Homey.Driver {
     }
   }
 }
+
+TuyaBaseDriver.categorietypes = [
+  {
+    type: "airConditioner",
+    category: ["kt"],
+  },
+  {
+    type: "light",
+    category: ["dj", "dd", "fwd", "tgq", "xdd", "dc", "tgkg", "sxd", "tyndj", "mbd", "gyd"],
+  },
+  {
+    type: "temphumimeter",
+    category: ["wsdcg"],
+  },
+  {
+    type: "switch",
+    category: ["kg", "tdq"],
+  },
+  {
+    type: "socket",
+    category: ["cz", "pc"],
+  },
+  {
+    type: "cover",
+    category: ["cl", "clkg"],
+  },
+  {
+    type: "airPurifier",
+    category: ["kj", "cs"],
+  },
+  {
+    type: "dehumidifier",
+    category: ["cs"],
+  },
+  {
+    type: "fan",
+    category: ["fs", "fskg"],
+  },
+  {
+    type: "smokeSensor",
+    category: ["ywbj"],
+  },
+  {
+    type: "coSensor",
+    category: ["cobj"],
+  },
+  {
+    type: "heater",
+    category: ["qn"],
+  },
+  {
+    type: "garageDoorOpener",
+    category: ["ckmkzq"],
+  },
+  {
+    type: "contactSensor",
+    category: ["mcs"],
+  },
+  {
+    type: "leakSensor",
+    category: ["rqbj", "jwbj", "sj"],
+  },
+  {
+    type: "pir",
+    category: ["pir"],
+  },
+  {
+    type: "presenceSensor",
+    category: ["hps"],
+  },
+  {
+    type: "thermostat",
+    category: ["wk"],
+  },
+  {
+    type: "feeder",
+    category: ["cwwsq"],
+  },
+  {
+    type: "parksidecharger",
+    category: ["zncdq"],
+  },
+];
 
 module.exports = TuyaBaseDriver;

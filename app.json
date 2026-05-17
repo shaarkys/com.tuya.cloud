@@ -1196,6 +1196,11 @@
         "onoff",
         "alarm_device_offline"
       ],
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
       "id": "parksidecharger"
     },
     {

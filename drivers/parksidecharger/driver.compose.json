@@ -13,6 +13,9 @@
     "onoff",
     "alarm_device_offline"
   ],
+  "energy": {
+    "batteries": [ "OTHER" ]
+  },
   "$extends": [
     "defaults"
   ]

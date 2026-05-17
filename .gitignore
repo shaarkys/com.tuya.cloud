@@ -405,3 +405,4 @@ node_modules
 .homeycompose/app.json
 app.json
 tmp_head.txt
+AGENTS.md
