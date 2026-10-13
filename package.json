@@ -6,24 +6,24 @@
   "dependencies": {
     "@clubedaentrega/cipher": "^1.0.0",
     "aes-decrypter": "^4.0.2",
-    "axios": "^1.16.1",
-    "chai": "^6.2.2",
+    "axios": "^1.20.0",
+    "chai": "^6.3.0",
     "crypto-js": "^4.2.0",
     "everpolate": "0.0.3",
-    "js-base64": "^3.7.8",
-    "mqtt": "^5.15.1",
-    "qs": "^6.15.2",
+    "js-base64": "^3.9.4",
+    "mqtt": "^5.16.0",
+    "qs": "^6.16.0",
     "string-cipher": "^1.0.8",
     "text-encoding": "^0.7.0",
     "utf-8-validate": "6.0.6",
-    "uuid": "^14.0.0"
+    "uuid": "^14.0.3"
   },
   "devDependencies": {
-    "@tsconfig/node16": "16.1.8",
+    "@tsconfig/node16": "16.1.9",
     "@types/homey": "npm:homey-apps-sdk-v3-types@0.3.12",
-    "@types/node": "16.18.126",
-    "eslint": "7.32.0",
-    "eslint-config-athom": "3.1.5"
+    "@types/node": "26.6.5",
+    "eslint": "10.12.0",
+    "eslint-config-athom": "4.0.2"
   },
   "overrides": {
     "@typescript-eslint/typescript-estree": {
