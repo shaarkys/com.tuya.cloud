@@ -25,6 +25,9 @@ class TuyaCloudApp extends Homey.App {
 
     this.log(`Tuya cloud App has been initialized`);
     this.initialized = true;
+    if (this.tuyaOpenMQ && this.tuyaOpenMQ.running) {
+      this.reconcileDeviceStates().catch(error => this.error('Tuya cloud initial status reconciliation failed:', error.message));
+    }
   }
 
   async connectToTuyaApi() {
@@ -112,8 +115,9 @@ class TuyaCloudApp extends Homey.App {
 
     let mq = new TuyaOpenMQ(this.tuyaOpenApi, "1.0", this.logger);
     this.tuyaOpenMQ = mq;
-    this.tuyaOpenMQ.start();
     this.tuyaOpenMQ.addMessageListener(this.onMQTTMessage.bind(this));
+    this.tuyaOpenMQ.addConnectionListener(() => this.reconcileDeviceStates());
+    this.tuyaOpenMQ.start();
     this._connected = true;
   }
 
@@ -205,8 +209,11 @@ class TuyaCloudApp extends Homey.App {
         }
       }
     } else {
-      this.refreshDeviceStates(message);
-      this.triggerTuyaMessageFlow(message);
+      if (!Array.isArray(message.status)) return;
+      if (!this.mqttUpdateSequence) this.mqttUpdateSequence = new Map();
+      this.mqttUpdateSequence.set(message.devId, (this.mqttUpdateSequence.get(message.devId) || 0) + 1);
+      await this.refreshDeviceStates(message);
+      await this.triggerTuyaMessageFlow(message);
     }
   }
 
@@ -233,6 +240,51 @@ class TuyaCloudApp extends Homey.App {
     let driver = this.getTypeDriver(type);
     if (driver != null) {
       this.updateCapabilities(driver, message.devId, message.status);
+    }
+    if (Array.isArray(message.status)) {
+      const statuses = new Map((device.status || []).map(status => [status.code, status]));
+      message.status.forEach(status => statuses.set(status.code, status));
+      device.status = Array.from(statuses.values());
+    }
+  }
+
+  async reconcileDeviceStates() {
+    if (!this.initialized || !Array.isArray(this.devices)) return;
+    if (this.reconciling) {
+      this.reconcilePending = true;
+      return;
+    }
+    this.reconcilePending = false;
+    this.reconciling = true;
+    this.log('Tuya cloud status reconciliation started');
+    try {
+      for (const device of this.devices) {
+        if (!this.tuyaOpenMQ || !this.tuyaOpenMQ.running) break;
+        const type = TuyaBaseDriver.get_type_by_category(device.category);
+        const driver = this.getTypeDriver(type);
+        if (!driver) continue;
+        try {
+          driver.getDevice({ id: device.id });
+        } catch (error) {
+          continue;
+        }
+        try {
+          const sequence = this.mqttUpdateSequence && this.mqttUpdateSequence.get(device.id);
+          const status = await this.tuyaOpenApi.getDeviceStatus(device.id);
+          if (!Array.isArray(status)) throw new Error('Invalid device status response');
+          if (this.mqttUpdateSequence && this.mqttUpdateSequence.get(device.id) !== sequence) continue;
+          await this.refreshDeviceStates({ devId: device.id, status });
+        } catch (error) {
+          this.error(`Tuya cloud status refresh failed for ${device.id}: ${error.message}`);
+        }
+      }
+    } finally {
+      this.reconciling = false;
+      this.log('Tuya cloud status reconciliation finished');
+      if (this.reconcilePending && this.tuyaOpenMQ && this.tuyaOpenMQ.running) {
+        this.reconcilePending = false;
+        this.reconcileDeviceStates().catch(error => this.error('Tuya cloud pending status reconciliation failed:', error.message));
+      }
     }
   }
 
